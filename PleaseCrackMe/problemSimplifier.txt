@@ -1,0 +1,35 @@
+THIS IS JUST A SIMPLIFICATION OF THE PROBLEM.
+ i had changed name of the important variables hope you guys will figure it out :)
+
+
+local_20 = 40
+
+if the variable 1-9Input is less than 1:
+    then we are setting the variable uVar2 = 4294967295(this is the decimal form of the given hex number.)
+
+
+and if it is less than 10:
+    we set i = 0
+
+    and we run a while true loop:
+        where we set checkVar as unsigned version of i(well we are just setting checkVar as 0.)
+
+        then we set strLength as the string length of usernameInput
+
+        if sVar3 is less than or equal to uVar4 we break from the loop.
+
+        otherwise we set the array buffer[i] as character type of 1-9Input + usernameInput[i]
+        then we increment i by 1 
+                
+
+after that we store iVar1 as the result of strcmp between local_58 and passwordInput
+
+if they are equal then we get the message we are logged in
+
+otherwise we get the message wrong password
+
+then we set uVar2 as 0
+
+the above where the else if parts the next is the else part
+
+else part is just telling the number is too big and exiting out.         

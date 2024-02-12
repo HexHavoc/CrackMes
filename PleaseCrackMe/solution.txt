@@ -1,0 +1,73 @@
+So first of all i booted up the binary file of the given program on ghidra
+
+Then we can see that the local_78 [32] stores the username input and local_38 [24] stores the passwordinput, local_80 just stores the given input of numbers ranging from 1-9.
+
+Now lets get into the main part of the program that is the password generation.
+
+So basically the password is generated runtime i.ewhen we enter the username along with the number(1-9) the password is generated with the help of those inputs.
+
+local_7c = 0;
+while( true ) {
+      uVar4 = (ulong)local_7c;
+      sVar3 = strlen(local_78);
+      if (sVar3 <= uVar4) break;
+      local_58[local_7c] = (char)local_80 + local_78[local_7c];
+      local_7c = local_7c + 1;
+}
+
+The above code is the loop responsible for the password generation.So lets break it down
+
+first of all the local_7c is set o to 0 it acts asa index to the loop and we assign the unsigned version of local_7c to uVar4 basically we are just asssigning it 0.
+
+Then the variable sVar3 stores the length of the username input
+
+We check if sVar3 is less than or equal to uVar4 which is the condition part of the loop
+
+Now is the crucial part of the entire problem thisis the code that stores our orginal password.
+ local_58[local_7c] = (char)local_80 + local_78[local_7c];
+
+In the above code it is setting the elements of the array local_58 as the result of the ascii calculation i.e since we explicitly type casted local_80 from an integer to a character the compiler takes the ascii value of that variable and add it with the first character of the username heres the twist the first character of the username will also be converted into ascii value cuz of type promotion in Cthen the ascii values of both the variables will be added and then the result is then converted into the character of that ascii value this is because of format specifiers in C.
+
+
+so lets say for example we type in the username as ball and input number as 5
+
+then the loop will go like this
+local_7c is set to 0 and sVar3 is set to 4.
+
+iteration 1) the first element of local_58 will be 
+                local_58[0] = 5 + 98(a) = 103 = 'g'
+
+iteration 2) the second element of local_58 will be
+                local_58[1] = 5 + 97(b) = 102 = 'f'
+
+iteration 3) the third element of local_58 will be
+                local_58[2] = 5 + 108(l) = 113 = 'q'
+
+iteration 4) the fourth element of local_58 will be
+                local_58[2] = 5 + 108(l) = 113 = 'q'
+
+then after the fourth iteration the code{if (sVar3 <= uVar4) break;} becomes true and the loop will exit out.
+
+printf("\nType in the password: ");
+ __isoc99_scanf(&DAT_00102020,local_38);
+iVar1 = strcmp(local_58,local_38);
+if (iVar1 == 0) {
+      puts("\nYou are succesfully logged in");
+}
+else {
+      puts("\nWrong password");
+}
+
+After the loop exits out the above is executed in which the iVar1 holds the value of strcmpstrcmp returns 0 if the string is true and 1 if it is false since our orginal password string will be equal to the entered password string we will print succesfully logged in.
+
+
+
+So if you guys want a converter script that will do the ascii calculations of the password generator code then i have included that as well in the zip named converter.py :)
+
+
+ 
+In short the password is generated at runtime so we cant find it just by reverse engineering the code. The password is generated withe ascii calculations and conversions from ascii valueto character and vice versa as well.
+ 
+
+
+
